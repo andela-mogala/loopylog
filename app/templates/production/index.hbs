@@ -1,0 +1,29 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>Boards</th>
+      <th>BoardFeet</th>
+      <th>{{fa-icon "cogs"}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>All Dimensions</td>
+      <td>{{totalBoards}}</td>
+      <td>{{format-number totalBoardFeet precision=2}}</td>
+    </tr>
+    {{#each model as |row|}}
+      <tr class="{{row-class row}}">
+        <td>
+          {{#link-to "production.dimension" row.DimensionID}}
+            {{row.DimensionName}}
+          {{/link-to}}
+        </td>
+        <td class="quantity">{{row.boards}}</td>
+        <td class="quantity">{{format-number row.boardFeet precision=2}}</td>
+        <td><input type="checkbox" disabled={{eq row.boards 0}}></td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

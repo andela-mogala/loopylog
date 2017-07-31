@@ -1,8 +1,8 @@
 <thead>
 <tr>
-  {{table-th name="Dimension"}}
-  {{table-th name="Boards"}}
-  {{table-th name="BoardFeet"}}
+  {{table-th name="Dimension" currentSort=sortBy sortBy="default" sortData=(action "sortData")}}
+  {{table-th name="Boards" currentSort=sortBy sortBy="boards" sortData=(action "sortData")}}
+  {{table-th name="BoardFeet" currentSort=sortBy sortBy="boardFeet" sortData=(action "sortData")}}
   {{#table-th}}{{fa-icon "cogs"}}{{/table-th}}
 </tr>
 </thead>
@@ -12,7 +12,7 @@
   <td>{{totalBoards}}</td>
   <td>{{format-number totalBoardFeet precision=2}}</td>
 </tr>
-{{#each model as |row|}}
+{{#each sortedModel as |row|}}
   <tr class="{{row-class row}}">
     <td>
       {{#link-to "production.dimension" row.DimensionID}}
@@ -21,7 +21,11 @@
     </td>
     <td class="quantity">{{row.boards}}</td>
     <td class="quantity">{{format-number row.boardFeet precision=2}}</td>
-    <td><input type="checkbox" disabled={{eq row.boards 0}}></td>
+    <td>
+      {{#link-to "production.dimension" row.DimensionID}}
+        {{fa-icon 'search'}}
+      {{/link-to}}
+    </td>
   </tr>
 {{/each}}
 </tbody>

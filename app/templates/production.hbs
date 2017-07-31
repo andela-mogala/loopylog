@@ -1,1 +1,14 @@
+{{loopy-loader
+  startDate=startDate
+  startTime=startTime
+  endDate=endDate
+  endTime=endTime
+  load=(route-action "loadData")
+}}
+
+<h2>
+  {{#link-to "production" start end}}
+    Production From {{unbound startTime}} to {{unbound endTime}}
+  {{/link-to}}
+</h2>
 {{outlet}}

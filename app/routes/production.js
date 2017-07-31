@@ -1,28 +1,13 @@
 import Ember from 'ember';
-import Production from 'loopylog/models/production';
 import moment from 'moment';
-
-const {
-  RSVP: { Promise },
-  $: { getJSON }
-} = Ember;
 
 export default Ember.Route.extend({
   model(params) {
     this.set('params', params);
-    return new Promise(function(resolve) {
-      setTimeout(() => {
-        getJSON(`/data/production.json?start=${params.start}&end=${params.end}`)
-          .then(data => {
-            let records = [];
-            data.forEach(item => {
-              records.pushObject(Production.create(item));
-            });
-            resolve(records);
-          });
-      }, 2000);
-    });
+    return this.get('mystore').production(params.start, params.end);
   },
+
+  //myStore: Ember.inject.service('mystore'),
 
   setupController(controller, model) {
     this._super(controller, model);
